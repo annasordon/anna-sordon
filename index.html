@@ -104,7 +104,7 @@
 
   nav a {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--ink-mute);
@@ -118,9 +118,14 @@
   section {
     padding: 4rem 0;
     border-bottom: 0.5px solid var(--rule);
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  section.hidden {
     opacity: 0;
     transform: translateY(18px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
   }
 
   section.visible { opacity: 1; transform: translateY(0); }
@@ -204,7 +209,6 @@
     cursor: pointer;
     transition: background 0.2s;
     position: relative;
-    overflow: hidden;
   }
 
   .expertise-item:nth-child(even) { border-right: none; }
@@ -256,22 +260,18 @@
 
   .expertise-desc {
     font-family: var(--mono);
-    font-size: 10px;
+    font-size: 12px;
     color: var(--ink-mute);
     letter-spacing: 0.05em;
     line-height: 1.6;
   }
 
   .expertise-expand {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease, opacity 0.3s ease;
-    opacity: 0;
+    display: none;
   }
 
   .expertise-item.open .expertise-expand {
-    max-height: 200px;
-    opacity: 1;
+    display: block;
   }
 
   .expertise-personal {
@@ -324,7 +324,7 @@
   .timeline-role em { font-style: italic; font-weight: 300; }
 
   .timeline-desc {
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     color: var(--ink-soft);
     line-height: 1.7;
     margin-bottom: 0.8rem;
@@ -509,19 +509,57 @@
 
   /* RESPONSIVE */
   @media (max-width: 640px) {
-    header { grid-template-columns: 1fr; }
-    .header-meta { text-align: left; }
-    .stats { grid-template-columns: repeat(2, 1fr); }
+    .page { padding: 0 1.25rem; }
+
+    header {
+      grid-template-columns: 1fr;
+      padding: 3rem 0 2.5rem;
+      gap: 1.5rem;
+    }
+    .header-meta { text-align: left; line-height: 2.2; }
+
+    h1 { font-size: clamp(3rem, 16vw, 4.5rem); }
+
+    nav {
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      padding: 1rem 0;
+    }
+    nav a { font-size: 11px; }
+
+    section { padding: 2.5rem 0; }
+
+    .stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
     .stat:nth-child(2) { border-right: none; }
     .stat:nth-child(3) { border-top: 0.5px solid var(--rule); }
     .stat:nth-child(4) { border-top: 0.5px solid var(--rule); }
+    .stat-number { font-size: 1.8rem; }
+
     .expertise-grid { grid-template-columns: 1fr; }
     .expertise-item { border-right: none; }
-    .expertise-item:nth-child(odd) { border-right: none; }
-    .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
-    .skills-layout { grid-template-columns: 1fr; }
-    .edu-grid { grid-template-columns: 1fr; }
+    .expertise-item:nth-last-child(-n+2) { border-bottom: 0.5px solid var(--rule); }
+    .expertise-item:last-child { border-bottom: none; }
+
+    .timeline-item {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+      padding: 1.5rem 0;
+    }
+    .timeline-meta { padding-top: 0; }
+    .timeline-company { margin-bottom: 0.1rem; }
+
+    .skills-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+    .edu-grid { grid-template-columns: 1fr; gap: 1rem; }
+
     .contact-block { grid-template-columns: 1fr; gap: 2rem; }
+
+    footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
   }
 </style>
 </head>
@@ -582,7 +620,7 @@
   <section id="expertise">
     <p class="section-label">Areas of expertise</p>
     <div class="expertise-grid">
-      <div class="expertise-item">
+      <div class="expertise-item" onclick="var o=this.classList.contains('open');document.querySelectorAll('.expertise-item').forEach(function(i){i.classList.remove('open')});if(!o)this.classList.add('open');">
         <div class="expertise-header">
           <p class="expertise-title">Strategic Account Management</p>
           <span class="expertise-toggle">+</span>
@@ -592,7 +630,7 @@
           <p class="expertise-personal">I've managed accounts representing 70% of company revenues — including Balenciaga, YNAP Group, and Chalhoub. I don't just manage accounts, I build the kind of relationships where clients call you before the brief is written.</p>
         </div>
       </div>
-      <div class="expertise-item">
+      <div class="expertise-item" onclick="var o=this.classList.contains('open');document.querySelectorAll('.expertise-item').forEach(function(i){i.classList.remove('open')});if(!o)this.classList.add('open');">
         <div class="expertise-header">
           <p class="expertise-title">Commercial Strategy &amp; P&amp;L</p>
           <span class="expertise-toggle">+</span>
@@ -602,7 +640,7 @@
           <p class="expertise-personal">I'm comfortable owning the numbers — from quarterly forecasting to gross margin improvement. I consistently exceeded revenue targets by 30%+ by treating P&amp;L as a strategic tool, not just a reporting exercise.</p>
         </div>
       </div>
-      <div class="expertise-item">
+      <div class="expertise-item" onclick="var o=this.classList.contains('open');document.querySelectorAll('.expertise-item').forEach(function(i){i.classList.remove('open')});if(!o)this.classList.add('open');">
         <div class="expertise-header">
           <p class="expertise-title">Partnership &amp; Business Development</p>
           <span class="expertise-toggle">+</span>
@@ -612,7 +650,7 @@
           <p class="expertise-personal">I've negotiated and launched partnerships with 8+ luxury brands across three continents. I find the commercial modelling part as interesting as the relationship side — getting the structure right is what makes a partnership last.</p>
         </div>
       </div>
-      <div class="expertise-item">
+      <div class="expertise-item" onclick="var o=this.classList.contains('open');document.querySelectorAll('.expertise-item').forEach(function(i){i.classList.remove('open')});if(!o)this.classList.add('open');">
         <div class="expertise-header">
           <p class="expertise-title">E-commerce &amp; Digital Operations</p>
           <span class="expertise-toggle">+</span>
@@ -622,7 +660,7 @@
           <p class="expertise-personal">I've directed e-commerce operations across 30+ online partners globally — managing everything from assortment strategy to promotional calendars. I understand how digital and physical retail interact, not just how they run in parallel.</p>
         </div>
       </div>
-      <div class="expertise-item">
+      <div class="expertise-item" onclick="var o=this.classList.contains('open');document.querySelectorAll('.expertise-item').forEach(function(i){i.classList.remove('open')});if(!o)this.classList.add('open');">
         <div class="expertise-header">
           <p class="expertise-title">CRM &amp; Customer Strategy</p>
           <span class="expertise-toggle">+</span>
@@ -632,7 +670,7 @@
           <p class="expertise-personal">I rebuilt a CRM strategy from scratch and tripled customer retention in six months. The key was segmentation — understanding that different customers need different conversations, not just different discounts.</p>
         </div>
       </div>
-      <div class="expertise-item">
+      <div class="expertise-item" onclick="var o=this.classList.contains('open');document.querySelectorAll('.expertise-item').forEach(function(i){i.classList.remove('open')});if(!o)this.classList.add('open');">
         <div class="expertise-header">
           <p class="expertise-title">Agile Product &amp; Launches</p>
           <span class="expertise-toggle">+</span>
@@ -795,9 +833,9 @@
         </p>
       </div>
       <div class="contact-links">
-        <a class="contact-link" href="/cdn-cgi/l/email-protection#52213d20363d3c333c3c3312353f333b3e7c313d3f">
+        <a class="contact-link" href="mailto:sordonanna@gmail.com">
           <span class="contact-link-label">Email</span>
-          <span class="__cf_email__" data-cfemail="077468756368696669696647606a666e6b2964686a">[email&#160;protected]</span>
+          sordonanna@gmail.com
         </a>
         <a class="contact-link" href="tel:+393481897264">
           <span class="contact-link-label">Phone</span>
@@ -807,7 +845,7 @@
           <span class="contact-link-label">LinkedIn</span>
           anna-sordon ↗
         </a>
-        <a class="contact-link" href="/cdn-cgi/l/email-protection#3f4c504d5b50515e51515e7f58525e5653115c5052004c4a5d555a5c4b027c691f6d5a4e4a5a4c4b1fddbfab1f7e51515e1f6c504d5b5051">
+        <a class="contact-link" href="mailto:sordonanna@gmail.com?subject=CV Request — Anna Sordon">
           <span class="contact-link-label">CV</span>
           Request full CV →
         </a>
@@ -822,31 +860,28 @@
 
 </div>
 
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 <script>
-  const sections = document.querySelectorAll('section');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+(function() {
+  var sections = document.querySelectorAll('section');
+  sections.forEach(function(s) { s.classList.add('hidden'); });
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
       if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.08 });
-  sections.forEach(s => observer.observe(s));
+  sections.forEach(function(s) { observer.observe(s); });
 
-  document.querySelectorAll('.expertise-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.expertise-item').forEach(i => i.classList.remove('open'));
+  document.querySelectorAll('.expertise-item').forEach(function(item) {
+    item.addEventListener('click', function() {
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.expertise-item').forEach(function(i) {
+        i.classList.remove('open');
+      });
       if (!isOpen) item.classList.add('open');
     });
   });
-
-  document.querySelectorAll('a[href*="cdn-cgi"]').forEach(a => {
-    a.href = 'mailto:sordonanna@gmail.com';
-  });
-  document.querySelectorAll('.__cf_email__').forEach(el => {
-    const parent = el.closest('a') || el.parentElement;
-    if (parent && parent.tagName === 'A') parent.href = 'mailto:sordonanna@gmail.com';
-    el.replaceWith(document.createTextNode('sordonanna@gmail.com'));
-  });
+})();
 </script>
 </body>
 </html>
