@@ -574,7 +574,7 @@
     </div>
     <div class="header-meta">
       <span>Milan, Italy</span>
-      <a id="hdr-email" href="#" style="color:var(--gold);text-decoration:none;display:block;">sordonanna@gmail.com</a>
+      <span id="hdr-email" style="color:var(--gold);font-size:10px;letter-spacing:0.1em;display:block;cursor:pointer;"></span>
       <a href="https://linkedin.com/in/anna-sordon" target="_blank">LinkedIn ↗</a>
       <a href="tel:+393481897264">+39 348 189 7264</a>
     </div>
@@ -593,7 +593,7 @@
   <section id="about">
     <p class="section-label">Profile</p>
     <p class="intro-text">
-      I grow revenue through strategic accounts, commercial partnerships, and data-driven go-to-market execution. Across <span style="color:var(--gold);font-style:italic;">luxury retail and e-commerce,</span> in markets spanning EMEA, APAC, and the US.<br><br>
+      I grow revenue through strategic accounts, commercial partnerships, and data-driven go-to-market execution, across <span style="color:var(--gold);font-style:italic;">luxury retail and e-commerce,</span> in markets spanning EMEA, APAC, and the US.<br><br>
       I've spent most of my career in spaces where the rules were still being written. It's a good way to learn: you figure things out fast, get comfortable with uncertainty, and develop a commercial instinct that's hard to teach.
     </p>
 
@@ -861,21 +861,26 @@
 
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 <script>
 (function() {
-  var u = 'sordonanna';
-  var d = 'gmail.com';
-  var e = u + '@' + d;
+  var e = [115,111,114,100,111,110,97,110,110,97,64,103,109,97,105,108,46,99,111,109].map(function(c){return String.fromCharCode(c)}).join('');
   var ml = 'mailto:' + e;
+
   var hdr = document.getElementById('hdr-email');
-  if (hdr) { hdr.href = ml; hdr.textContent = e; }
+  if (hdr) {
+    var a = document.createElement('a');
+    a.href = ml;
+    a.textContent = e;
+    a.style.cssText = 'color:var(--gold);text-decoration:none;font-size:10px;letter-spacing:0.1em;display:block;';
+    hdr.parentNode.replaceChild(a, hdr);
+  }
+
   var ce = document.getElementById('contact-email');
-  var ct = document.getElementById('contact-email-text');
   if (ce) { ce.href = ml; }
+  var ct = document.getElementById('contact-email-text');
   if (ct) { ct.textContent = e; }
   var cv = document.getElementById('cv-email');
-  if (cv) { cv.href = ml + '?subject=CV%20Request%20%E2%80%94%20Anna%20Sordon'; }
+  if (cv) { cv.href = ml + '?subject=CV%20Request%20-%20Anna%20Sordon'; }
 
   var sections = document.querySelectorAll('section');
   sections.forEach(function(s) { s.classList.add('hidden'); });
@@ -883,4 +888,10 @@
     entries.forEach(function(entry) {
       if (entry.isIntersecting) entry.target.classList.add('visible');
     });
-  }, { thr
+  }, { threshold: 0.08 });
+  sections.forEach(function(s) { observer.observe(s); });
+
+})();
+</script>
+</body>
+</html>
